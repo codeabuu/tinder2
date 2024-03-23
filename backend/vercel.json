@@ -1,6 +1,5 @@
-
 {
-  "version": 2,
+  "version": 3,
   "builds": [
     {
       "src": "tinder2/backend/server.js",
@@ -9,8 +8,8 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/"
+      "src": "/*",  // Match all incoming URLs
+      "dest": "/"   // Don't rewrite URLs (optional, might be needed for some frameworks)
     }
   ]
 }
