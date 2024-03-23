@@ -27,7 +27,7 @@ const OnBoarding = () => {
         console.log('submitted')
         e.preventDefault()
         try {
-            const response = await axios.put('https://tinder2-snowy.vercel.app/user', {formData})
+            const response = await axios.put('http://localhost:3000/user', {formData})
             console.log(response)
             const success = response.status === 200
             if (success) navigate('/dashboard')
