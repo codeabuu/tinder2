@@ -8,8 +8,8 @@
   ],
   "routes": [
     {
-      "src": "/*",  // Match all incoming URLs
-      "dest": "/"   // Don't rewrite URLs (optional, might be needed for some frameworks)
+      "src": "/*",
+      "dest": "/"
     }
   ]
 }
