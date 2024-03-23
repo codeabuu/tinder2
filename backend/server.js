@@ -10,7 +10,13 @@ const validator = require('validator')
 const uri = "mongodb+srv://qasenator:alx@cluster0.0pxjqhb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 const app = express()
-app.use(cors())
+app.use(cors(
+	{
+		origin: ['deployed-vercel-frontend-app', 'localhost:3000'],
+		methods: ['POST', 'GET'],
+		credentials: true,
+	}
+))
 app.use(express.json())
 
 // Default
