@@ -11,7 +11,7 @@ const uri = "mongodb+srv://qasenator:alx@cluster0.0pxjqhb.mongodb.net/?retryWrit
 
 const app = express()
 app.use(cors())
-app.use(express.json())
+app.use(express.json({limit: '10mb'}))
 
 // Default
 app.get('/', (req, res) => {

@@ -27,7 +27,7 @@ const OnBoarding = () => {
         console.log('submitted')
         e.preventDefault()
         try {
-            const response = await axios.put('http://localhost:3000/user', {formData})
+            const response = await axios.put('http://localhost:8000/user', {formData})
             console.log(response)
             const success = response.status === 200
             if (success) navigate('/dashboard')
@@ -47,6 +47,19 @@ const OnBoarding = () => {
             [name]: value
         }))
     }
+	 const handlePhotoUpload = (files) => {
+	        const file = files[0]; // Assuming only one file is selected
+       		 if (file) {
+            	const reader = new FileReader();
+            	reader.onloadend = () => {
+                	setFormData(prevState => ({
+                    		...prevState,
+                    		url: reader.result // Set the URL of the uploaded image
+               		 }));
+            	};
+            reader.readAsDataURL(file); // Read the file as data URL
+        }
+    };
 
     return (
         <>
@@ -126,15 +139,6 @@ const OnBoarding = () => {
                                 checked={formData.gender_identity === "woman"}
                             />
                             <label htmlFor="woman-gender-identity">Woman</label>
-                            <input
-                                id="more-gender-identity"
-                                type="radio"
-                                name="gender_identity"
-                                value="more"
-                                onChange={handleChange}
-                                checked={formData.gender_identity === "more"}
-                            />
-                            <label htmlFor="more-gender-identity">More</label>
                         </div>
 
                         <label htmlFor="show-gender">Show Gender on my Profile</label>
@@ -168,15 +172,6 @@ const OnBoarding = () => {
                                 checked={formData.gender_interest === "woman"}
                             />
                             <label htmlFor="woman-gender-interest">Woman</label>
-                            <input
-                                id="everyone-gender-interest"
-                                type="radio"
-                                name="gender_interest"
-                                value="everyone"
-                                onChange={handleChange}
-                                checked={formData.gender_interest === "everyone"}
-                            />
-                            <label htmlFor="everyone-gender-interest">Everyone</label>
 
                         </div>
 
@@ -198,16 +193,19 @@ const OnBoarding = () => {
 
                         <label htmlFor="url">Profile Photo</label>
                         <input
-                            type="url"
-                            name="url"
+                            type="file"
+                            name="image/*"
                             id="url"
-                            onChange={handleChange}
+                            onChange={(e) => handlePhotoUpload(e.target.files)}
                             required={true}
+			    style={{display: "none"}}
                         />
                         <div className="photo-container">
                             {formData.url && <img src={formData.url} alt="profile pic preview"/>}
                         </div>
-
+			 <button className="p-button" type="button" onClick={() => document.getElementById('url').click()}>
+                            Select Photo(must not exceed 10mb)
+                        </button>
 
                     </section>
 
